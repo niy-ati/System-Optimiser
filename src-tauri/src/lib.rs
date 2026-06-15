@@ -537,6 +537,8 @@ fn apply_boot_optimization(
 ) -> Result<serde_json::Value, String> {
     enforce_rate_limit(&state, "apply_boot_optimization", OPTIMIZATION_LIMIT)?;
 
+    validate_optimization_id(&optimization_id)?;
+    
     let boot_optimizer = state.boot_optimizer.lock()
         .map_err(|e| format!("Failed to lock boot optimizer: {}", e))?;
 
